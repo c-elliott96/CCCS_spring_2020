@@ -1,0 +1,22 @@
+quiz Friday:
+     1) string length
+     2) substring
+     	a) longest common substring
+	   return z such that z is a substring of x and z is a
+	   substring of y AND z is maximized subject to x and y
+
+	   for this problem, use TWO (read, 3 or 4)double for loops to
+	   break apart the two stings into all their respective substrings
+
+	b) palindromes
+	   "madamimadam"
+	   bool is_palindrome(const char x[])
+
+     3) 240 basic algorithms
+     	- swap function
+	- max of array
+	- min of array
+	- int linear search of array (int x[], int len, int target)
+	  --> find 1st index where target is found in x[]
+	- int bubble sort (int x[], int len)
+	- int binary search (int x[], int len, int target)
