@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
-#include <stdio.h> 
+#include <stdio.h>
+#include <string.h>
 
 //====================
 // Function Prototypes
@@ -10,6 +11,7 @@ void rm_lead_space(char n[], char o[]);
 void print_str(char s[]);
 void print_ascii_ints();
 bool is_alpha(char x);
+void split_by_spaces(char s[]);
 //====================
 
 
@@ -59,7 +61,7 @@ void rm_lead_space(char n[], char o[]) // removes leading spaces in n and copies
       o[i] = n[j];
       ++j;
     }
-  o[n_len - spaces] = '\0'; // !!!! I'm not sure why I need this. confusion
+  o[get_len(o) + 1] = '\0'; // !!!! I'm not sure why I need this. confusion
                             // on '\0'
 }
 
@@ -68,8 +70,9 @@ void print_str(char s[])
 {
   for (int i = 0; i < get_len(s); ++i)
     {
-      std::cout << s[i] << ' ' << is_alpha(s[i]) << '\n';
+      std::cout << s[i] << ' ';
     }
+  std::cout << std::endl;
 }
 
 
@@ -92,6 +95,19 @@ bool is_alpha(char x)
 {
   return ((int(x) >= 65 && int(x) <= 90) || (int(x) >= 97 && int(x) <= 122));
 }
+
+
+void split_by_spaces(char s[]) // strtok() changes your array! consider copying input array and storing toks in an array of vectors 
+{
+  char *tok;
+  const char delim[2] = " ";
+  tok = strtok(s, delim);
+  while (tok != NULL)
+    {
+      printf("%s\n", tok);
+      tok = strtok(NULL, delim);
+    }
+}
   
 
 int main()
@@ -110,8 +126,11 @@ int main()
 
       char o [MAX_BUF];
       rm_lead_space(s, o);
+      std::cout << get_len(o) << '\n';
       // std::cout << '[' << s << "]\n";
       // std::cout << '[' << o << "]\n";
+      split_by_spaces(o);
+      std::cout << get_len(o) << '\n';
       print_str(o);
     }
 
