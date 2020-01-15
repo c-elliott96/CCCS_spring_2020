@@ -1,0 +1,7 @@
+#include "Mat.h"
+#include <iostream>
+
+Mat::Mat(int nrows, int ncols)
+  : nrows_(nrows), ncols_(ncols),
+    p_(new double [nrows * ncols])
+{}
