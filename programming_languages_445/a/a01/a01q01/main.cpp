@@ -2,6 +2,7 @@
 #include <limits>
 #include <stdio.h>
 #include <string.h>
+#include <string>
 
 //====================
 // Function Prototypes
@@ -21,31 +22,26 @@ const int MAX_BUF = 1024;
 //====================
 
 
-int get_len(char s[]) // get length of any char []
-{
-  int len = 0;
-  while (s[len] != '\0')
-    {
-      ++len;
-    }
-  return len;
-}
+// int get_len(char s[]) // get length of any char []
+// {
+//   return sizeof(s)/sizeof(*s) + 1;
+// }
 
 
 void copy_str(char n[], char o[]) // copy one char [] to another char []
 {
-  int n_len = get_len(n);
-  int o_len = n_len;
-  for (int i = 0; i <= o_len; ++i)
-    {
-      o[i] = n[i];
-    }
+  // int n_len = get_len(n);
+  // int o_len = n_len;
+  // for (int i = 0; i <= o_len; ++i)
+  //   {
+  //     o[i] = n[i];
+  //   }
 }
 
 
-void rm_lead_space(char n[], char o[]) // removes leading spaces in n and copies result to o
+void rm_lead_space(std::string n) // removes leading spaces in n
 {
-  int n_len = get_len(n);
+  int n_len = n.length();
   int n_it = 0;
   int spaces = 0;
   while (n[n_it] == ' ')
@@ -53,26 +49,15 @@ void rm_lead_space(char n[], char o[]) // removes leading spaces in n and copies
       ++spaces;
       ++n_it;
     }
-
-  // int o_len = n_len - spaces;
+  std::string o;
   int j = spaces;
   for (int i = 0; i < n_len - spaces; ++i)
     {
-      o[i] = n[j];
+      o.push_back(n[j]);
       ++j;
     }
-  o[get_len(o) + 1] = '\0'; // !!!! I'm not sure why I need this. confusion
-                            // on '\0'
-}
-
-
-void print_str(char s[])
-{
-  for (int i = 0; i < get_len(s); ++i)
-    {
-      std::cout << s[i] << ' ';
-    }
-  std::cout << std::endl;
+  n.clear();
+  n = o;
 }
 
 
@@ -97,7 +82,7 @@ bool is_alpha(char x)
 }
 
 
-void split_by_spaces(char s[]) // strtok() changes your array! consider copying input array and storing toks in an array of vectors 
+void print_split_by_spaces(char s[]) // strtok() changes your array! consider copying input array and storing toks in an array of vectors 
 {
   char *tok;
   const char delim[2] = " ";
@@ -108,33 +93,21 @@ void split_by_spaces(char s[]) // strtok() changes your array! consider copying 
       tok = strtok(NULL, delim);
     }
 }
-  
+
 
 int main()
 {
   while(1)
     {
-      char s[MAX_BUF];
-      std::cout << ">>> ";
-      std::cin.getline(s, MAX_BUF);
-      if (std::cin.eof()) break;
-      if (std::cin.fail() || std::cin.bad())
-  	{
-  	  std::cin.clear();
-  	  std::cin.ignore(std::numeric_limits<std::streamsize>::max());
-  	}
-
-      char o [MAX_BUF];
-      rm_lead_space(s, o);
-      std::cout << get_len(o) << '\n';
-      // std::cout << '[' << s << "]\n";
-      // std::cout << '[' << o << "]\n";
-      split_by_spaces(o);
-      std::cout << get_len(o) << '\n';
-      print_str(o);
+      std::string s;
+      std::getline(std::cin, s);
+      
+      std::cout << s << '\n';
+      std::cout << "length: " << s.length() << '\n';
+      rm_lead_space(s);
+      rm_trail_space(s);
+      std::cout << s << '\n';
     }
-
-  
 
   return 0;
 }
