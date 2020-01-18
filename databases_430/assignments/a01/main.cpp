@@ -25,9 +25,9 @@ const int BUF_SIZE = FILE_NUM_BLOCKS * BLOCK_BYTES;
 // ======================================================
 void printCharArray(const char *, int);
 int blockStart(int, int);
-void printMenu(const std::vector<Page *> &);
+int printMenu(const std::vector<Page *> &);
 void copyStrToObjs(const char [], std::vector<Page *>);
-
+void printActiveFrames(const std::vector<Page *> &);
 
 // ======================================================
 // Function Definitions
@@ -55,12 +55,47 @@ int blockStart(int block, int block_bytes)
 // }
 
 
-void printMenu(const std::vector<Page *> &abc)
+int printMenu(const std::vector<Page *> &abc)
 {
   std::cout << "[0] Fetch a page into memory \n"
 	    << "[1] Write frame \n"
 	    << "[2] Shutdown \n"
-	    << "Frames: \n";
+	    << "Frames: ";
+  printActiveFrames(abc);
+  int option;
+  std::cout << "option: ";
+  std::cin >> option;
+
+  return option;
+}
+
+
+void printActiveFrames(const std::vector <Page *> &abc)
+{
+  int print_count = 0;
+  for (int i = 0; i < abc.size(); ++i)
+    {
+      if (abc[i]->inFrameList) 
+	{
+	  std::cout << '[';
+	  if (abc[i]->isDirty)
+	    {
+	      std::cout << '*';
+	    }
+	  std::cout << abc[i]->frameID << ':';
+	  std::cout << abc[i]->str << "] ";
+	  ++print_count;
+	}
+    }
+  if (print_count <= 2)
+    {
+      while(print_count <= 2)
+	{
+	  std::cout << "[]";
+	  ++print_count;
+	}
+    }
+  std::cout << '\n';
 }
 
 
@@ -91,7 +126,6 @@ void copyStrToObjs(const char pathname[1000],
 }
 
 
-
 int main()
 {
   // ======================================================
@@ -102,16 +136,16 @@ int main()
   
   // open() returns an int based on how the function exited --> see posix i/o docs
   int fd = open(pathname, O_RDWR | O_CREAT, 0644);
-  if (fd < 0)
-    {
-      std::cout << "open fail\n";
-      std::cout << "errno: " << errno << std::endl;
-      std::cout << "strerror: " << strerror(errno) << std::endl;
-    }
-  else
-    {
-      std::cout << "open ok" << std::endl;
-    }
+  // if (fd < 0)
+  //   {
+  //     std::cout << "open fail\n";
+  //     std::cout << "errno: " << errno << std::endl;
+  //     std::cout << "strerror: " << strerror(errno) << std::endl;
+  //   }
+  // else
+  //   {
+  //     std::cout << "open ok" << std::endl;
+  //   }
 
   char buf[BUF_SIZE];
   for (int i = 0; i < FILE_NUM_BLOCKS * BLOCK_BYTES; ++i)
@@ -162,62 +196,94 @@ int main()
     {
       abc.push_back(new Page);
       abc[i]->frameID = i;
-      int x = i;
-      switch(x)
-	{
-	case 0:
-	  for (int j = 0; j < 4; ++j)
-	    {
-	      abc[i]->str[j] = 'a';
-	    }
-	  abc[i]->byteOffset = 0;
-	  break;
-	case 1:
-	  for (int j = 0; j < 4; ++j)
-	    {
-	      abc[i]->str[j] = 'b';
-	    };
-	  abc[i]->byteOffset = 4;
-	  break;
-	case 2:
-	  for (int j = 0; j < 4; ++j)
-	    {
-	      abc[i]->str[j] = 'c';
-	    };
-	  abc[i]->byteOffset = 8;
-	  break;
-	case 3:
-	  for (int j = 0; j < 4; ++j)
-	    {
-	      abc[i]->str[j] = 'd';
-	    }
-	  abc[i]->byteOffset = 12;
-	  break;
-	case 4:
-	  for (int j = 0; j < 4; ++j)
-	    {
-	      abc[i]->str[j] = 'e';
-	    }
-	  abc[i]->byteOffset = 16;
-	  break;
+      // int x = i;
+      // switch(x)
+      // 	{
+      // 	case 0:
+      // 	  for (int j = 0; j < 4; ++j)
+      // 	    {
+      // 	      abc[i]->str[j] = 'a';
+      // 	    }
+      // 	  abc[i]->byteOffset = 0;
+      // 	  break;
+      // 	case 1:
+      // 	  for (int j = 0; j < 4; ++j)
+      // 	    {
+      // 	      abc[i]->str[j] = 'b';
+      // 	    };
+      // 	  abc[i]->byteOffset = 4;
+      // 	  break;
+      // 	case 2:
+      // 	  for (int j = 0; j < 4; ++j)
+      // 	    {
+      // 	      abc[i]->str[j] = 'c';
+      // 	    };
+      // 	  abc[i]->byteOffset = 8;
+      // 	  break;
+      // 	case 3:
+      // 	  for (int j = 0; j < 4; ++j)
+      // 	    {
+      // 	      abc[i]->str[j] = 'd';
+      // 	    }
+      // 	  abc[i]->byteOffset = 12;
+      // 	  break;
+      // 	case 4:
+      // 	  for (int j = 0; j < 4; ++j)
+      // 	    {
+      // 	      abc[i]->str[j] = 'e';
+      // 	    }
+      // 	  abc[i]->byteOffset = 16;
+      // 	  break;
 	    
-	default:
-	  break;
-	}
+      // 	default:
+      // 	  break;
+      // 	}
     }
 
   // ===============================================
   // Begin Main Loop
   // ===============================================
-  printMenu(abc);
-  copyStrToObjs(pathname, abc);
-  for (int i = 0; i < abc.size(); ++i)
+  int x;
+  while(x != 2)
     {
-      for (int j = 0; j < 4; ++j)
-  	{
-  	  std::cout << abc[i]->str[j] << ' ';
-  	}
+      x = printMenu(abc);
+      copyStrToObjs(pathname, abc);
+      for (int i = 0; i < abc.size(); ++i)
+	{
+	  for (int j = 0; j < 4; ++j)
+	    {
+	      std::cout << abc[i]->str[j] << ' ';
+	    }
+	}
+      switch(x)
+	{
+	case 0:
+	  {
+	    // fetch a page - specify the page (index of abc
+	    // that corresponds with the right page of the file
+	    // CAREFUL! if they want to fetch a page and
+	    // there are already 3 fetched, we have to ask them
+	    // which one they want us to release from the buffer
+	    // at which point we need to check and see if it needs
+	    // to be written to the disk or not
+	    break;
+	  }
+	case 1:
+	  {
+	    // write frame - modify the frame contents
+	    // in this case, that means ask them to enter 4 chars
+	    // to represent the frame modifications
+	    break;
+	  }
+	case 2:
+	  {
+	    // quit - if no frames are dirty, quit. else,
+	    // write the dirty frames and print "halt"
+	    break;
+	  }
+	default:
+	  break;
+	}
     }
-
   return 0;
 }
