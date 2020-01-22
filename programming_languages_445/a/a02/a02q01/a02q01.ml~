@@ -1,0 +1,10 @@
+(*
+ File: a02q01.ml
+ Name: Christian Elliott
+ *)
+
+exception IgnoreCare;;
+exception NotImplemented;;
+
+print_string "Hello world\n";;
+

@@ -14,7 +14,7 @@ class Page
   int frameID;         // represents this objects location in main vector
   int byteOffset;      /* represents the "location" of the substring in the
 			  actual file */
-  char str[4];     /* string value of frame - to be only a temporary
+  std::string str[4];     /* string value of frame - to be only a temporary
                           value until write occurs */
 
   Page() // default constructor
