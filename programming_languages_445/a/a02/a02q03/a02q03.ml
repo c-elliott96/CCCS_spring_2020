@@ -12,7 +12,7 @@ exception NotImplemented;;
  * let g x = x -. 1.0;;
  * let h x = x *. x;; *)
 
-let add_func f g = fun x -> (f x) +. (g x);;
+let sub_func f g = fun x -> (f x) -. (g x);;
 
 (* let one = (add_func f g) 0.0;;
  * let two = (add_func f g) 1.0;;
@@ -20,10 +20,10 @@ let add_func f g = fun x -> (f x) +. (g x);;
  * let four = (add_func g f) 3.0;;
  * let five = (add_func f h) 0.0;;
  * let six = (add_func f h) 1.0;;
- * let seven = (add_func h f) 2.0;;
- * 
- * 
- * print_float one;;
+ * let seven = (add_func h f) 2.0;; *)
+
+
+(* print_float one;;
  * print_string " ";
  * print_float two;;
  * print_string " ";
