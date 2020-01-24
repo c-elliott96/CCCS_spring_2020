@@ -1,0 +1,11 @@
+(*
+  File: a02q02.ml
+  Name: Christian Elliott
+ *)
+
+exception IgnoreCase;;
+exception NotImplemented;;
+
+(* end boilerplate *)
+
+let add_func = fun -> fun (x : int) -> fun (y : int) x + y;;
