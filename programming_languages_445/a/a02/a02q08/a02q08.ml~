@@ -1,5 +1,5 @@
 (*
-  File: a02q04.ml
+  File: a02q07.ml
   Name: Christian Elliott
  *)
 
@@ -8,7 +8,10 @@ exception NotImplemented;;
 
 (* end boilerplate *)
 
-let mult_func f g = fun x -> (f x) *. (g x);;
+let max_func f g = fun x ->
+  if (f x) > (g x)
+  then (f x)
+else (g x);;
 
 (* let f x = x +. 1.0;;
  * let g x = x -. 1.0;;
@@ -24,17 +27,17 @@ let mult_func f g = fun x -> (f x) *. (g x);;
  * 
  * 
  * print_float one;;
- * print_string " ";
+ * print_string " ";;
  * print_float two;;
- * print_string " ";
+ * print_string " ";;
  * print_float three;;
- * print_string " \n";;
+ * print_string " ";;
  * print_float four;;
- * print_string " \n";;
+ * print_string " ";;
  * print_float five;;
- * print_string " \n";;
+ * print_string " ";;
  * print_float six;;
- * print_string " \n";;
+ * print_string " ";;
  * print_float seven;;
  * print_string " \n";; *)
 
