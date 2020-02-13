@@ -1,16 +1,17 @@
+drop database cms;		
 create database cms;
 use cms;
 
 create table year (
        id INT,
-       semester_id INT,
        year YEAR(4),
-       foreign key(semester_id) references semester(id)
+       primary key (id)
        );
 
 create table season (
        id INT,
-       season VARCHAR(100)
+       season VARCHAR(100),
+       primary key (id)
        );
 
 create table semester (
@@ -22,12 +23,14 @@ create table semester (
 
 create table course (
        id INT,
-       course VARCHAR(100)
+       course VARCHAR(100),
+       primary key (id)
        );
 
 create table section (
        id INT,
-       course VARCHAR(10)
+       course VARCHAR(10),
+       primary key (id)
        );
 
 create table person (
@@ -35,8 +38,14 @@ create table person (
        fname VARCHAR(100),
        lname VARCHAR(100),
        email VARCHAR(100),
-       user  VARCHAR(100),
-       password VARCHAR(100)
+       user VARCHAR(100),
+       password VARCHAR(100),
+       primary key (id)
+       );
+
+create table instructor (
+       person_id INT,
+       foreign key (person_id) references person(id)
        );
 
 
