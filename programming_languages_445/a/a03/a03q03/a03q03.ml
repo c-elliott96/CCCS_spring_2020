@@ -15,6 +15,8 @@ exception NotImplemented;;
  *   else
  *     1;; *)
 
-let rec power2 x n =
-  if n > 0 then 
-    if n 
+let rec sum_to n = 
+if n <= 0 then 0
+else if n > 1 then
+n + sum_to (n - 1)
+else 1;;

@@ -15,12 +15,12 @@ exception NotImplemented;;
  *   else
  *     1;; *)
 
-let rec power2 x n =
-  if n > 0 then 
-    (if n mod 2 == 0 then
-       (power2 x (n / 2)) * (power2 x (n / 2))
-     else
-       x * (power2 x ((n - 1) / 2) * power2 x ((n - 1) / 2))
-    )
-  else
-    1;;
+(* let rec sum_to n = 
+ * if n <= 0 then 0
+ * else if n > 1 then
+ * n + sum_to (n - 1)
+ * else 1;; *)
+
+let head n = match n with
+    (* we SHOULD have an empty list exception here *)
+    x::xs -> x;;
