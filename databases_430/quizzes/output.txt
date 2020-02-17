@@ -1,0 +1,6 @@
+username	filename
+jdoe	0000.jpg
+tsmith	0001.jpg
+tsmith	0002.jpg
+jdoe	0001.jpg
+jdoe	0004.jpg
