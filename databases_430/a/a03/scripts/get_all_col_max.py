@@ -5,8 +5,8 @@
 # of each entry in each row. The max lengths are saved in max_len list and
 # appended to the file 'file_lengths.txt' 
 #=============================================================================
-
-filename = '../name.basics.tsv'
+print("Enter a .tsv with single quotes ... e.g. 'file_name.tsv' ... ")
+filename = input()
 f = file(filename, 'r')
 name = ''
 max_len = []
@@ -43,5 +43,5 @@ for x in max_len:
 
 w_string += '\n'
 w.write(w_string)
-
+w.write(filename + '\n')
 w.close()
