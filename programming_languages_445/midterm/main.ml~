@@ -1,0 +1,39 @@
+(* Name: Christian Elliott
+   File: main.ml 
+ *)
+
+let initBoard n = Array.make (n * n) ' ';;
+
+let printBorder n = 
+for i = 1 to n do
+    print_string "+-"
+done;
+print_string "+\n"
+;;
+
+let printBoard n board = 
+printBorder n; 
+print_string "|";
+for i = 1 to (Array.length board) do
+    Printf.printf("%c|") board.(i - 1);
+    if (i mod n = 0) 
+    then (print_string "\n"; printBorder n; 
+        if (i != Array.length board) 
+        then print_string "|")
+done
+;;
+
+
+
+
+(*And then here is main: *)
+let main () =
+    let _ = print_string
+          "Welcome to Tic-Tac-Toe Ocaml! Enter the size of the board: " in
+    let n = read_int () in
+    play n (initBoard n) 'X'
+;;
+           
+     
+main ();; 
+
