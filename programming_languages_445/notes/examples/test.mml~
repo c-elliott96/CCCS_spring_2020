@@ -1,0 +1,12 @@
+{
+	type result = Int of int
+	     | Float of float
+	     | String of string;;
+}
+
+let digit = ['0'-'9']
+let digits = digit +
+let lower = ['a'-'z']
+let upper = ['A'-'Z']
+let letter = upper | lower
+let letters = letter +

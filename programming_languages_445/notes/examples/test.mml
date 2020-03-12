@@ -1,0 +1,29 @@
+{
+	type result = Int of int
+	     | Float of float
+	     | String of string;;
+}
+
+let digit = ['0'-'9']
+let digits = digit +
+let lower = ['a'-'z']
+let upper = ['A'-'Z']
+let letter = upper | lower
+let letters = letter +
+
+rule main = parse
+     digits '.' digits as f { Float (float_of_string f)
+     	    	       	      	    :: main lexbuf }
+   | digits as n	    { Int (int_of_string n)
+     	       		      	    :: main lexbuf }
+   | letters as s 	    { String s :: main lexbuf}
+   | eof     		    { [] }
+   | _ 			    { main lexbuf }
+
+{
+	let newlexbuf =
+	  let x = (Lexing.from_string "hi there 123.4 5") in
+	  let _ = print_string "Ready to lex ... \n" in
+	  main x
+	  ;;
+}
