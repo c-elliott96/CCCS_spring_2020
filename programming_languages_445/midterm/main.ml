@@ -12,7 +12,7 @@ print_string "+\n"
 ;;
 
 
-let printBoard n board = 
+let printBoard board n = 
 printBorder n; 
 print_string "|";
 for i = 1 to (Array.length board) do
@@ -77,18 +77,20 @@ let calculate_move row col n =
    check to ensure that the spot is unoccupied, 
    and then modify the board array if true, 
    if false, ask for a new move *)
+
 let rec get_player_move board n =
-  let _ = print_string "row: " in
+  print_string "row: ";
   let row = read_int () in
-  let _ = print_string "col: " in
+  print_string "col: ";
   let col = read_int () in
-  let move = calculate_move row col n in 
+  let move = calculate_move row col n in
   if (player_move_validation move board) then
-    (* if true, it's a valid move. *)
     board.(move) <- 'X'
   else
-    let _ = print_string "Invalid move. Please try again.\n" in
-    get_player_move board n
+    begin
+      print_string "Invalid move. Please try again.\n";
+      get_player_move board n;
+    end
 ;;
 
 (* let player_row_check board row col n = 
@@ -107,9 +109,56 @@ Array.for_all ((=) 'X') temp
 ;;
 
 
-let check_all_rows board n =
-  let winner =
-    for i to n do
+let check_col board col n =
+  let temp = Array.make n ' ' in
+  let j = ref 0 in
+  for i = 0 to (n * n - 1) do
+    Printf.printf("i = %d\n") i;
+    if ((i mod n) = col) then
+      begin
+        temp.(!j) <- board.(i);
+        j := !j + 1;
+      end
+  done;
+  print_array temp;
+  Array.for_all ((=) 'X') temp
+;;
       
-                  
-   
+
+let check_diag_right board n =
+  let temp = Array.make n ' ' in
+  let row = ref 0 in
+  for i = 0 to (n * n) do
+    if (i mod (n + 1) = 0) then
+      begin
+        temp.(!row) <- board.(i);
+        row := !row + 1;
+      end
+  done;
+  (* print my temp array for debugging *)
+  print_array temp;
+  Array.for_all ((=) 'X') temp
+;;
+
+
+let print_arr array_val =
+  Printf.printf("%c ") array_val;;
+
+
+let print_array array =
+  Array.iter print_arr array;;
+
+
+let check_diag_left board n =
+  let temp = Array.make n ' ' in
+  let row = ref 0 in
+  for i = 0 to ((n * n) - 1) do
+    if (i mod (n - 1) = 0 && (i != 0) && i != ((n * n) - 1)) then
+       begin
+         temp.(!row) <- board.(i);
+         row := !row + 1;
+       end
+  done;
+  print_array temp;
+  Array.for_all ((=) 'X') temp
+;;
