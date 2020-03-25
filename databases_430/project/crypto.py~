@@ -1,0 +1,10 @@
+# Name: Christian Elliott
+# File: crypto.py
+#
+# this program is designed to demonstrate and test
+# the functionality of python's hashlib hashing library
+
+
+import hashlib
+import os
+
