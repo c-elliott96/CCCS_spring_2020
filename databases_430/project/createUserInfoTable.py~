@@ -1,0 +1,8 @@
+import MySQLdb
+
+# =====================
+# Create UserInfo table
+# =====================
+
+createQuery = """
+Create table IF NOT EXISTS UserInfo (
