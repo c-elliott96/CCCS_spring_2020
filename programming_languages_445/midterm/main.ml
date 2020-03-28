@@ -23,11 +23,6 @@ for i = 1 to (Array.length board) do
 done
 ;;
 
-
-
-
-
-
 (* the logic in main needs to be adjusted. I need to be able to reference board by name *)
 
 (* this function works - it prompts for a number until it receives 42
@@ -186,22 +181,6 @@ let check_for_win board n c =
       a. if no pre-existing moves exist, make a random
          move. 
  *)
-
-
-let rec make_computer_move board n =
-  print_string "computer, row: ";
-  let row = read_int () in
-  print_string "computer, col: ";
-  let col = read_int () in
-  let move = calculate_move row col n in
-  if (player_move_validation move board) then
-    board.(move) <- 'O'
-  else
-    begin
-      print_string "Invalid move. Please try again.\n";
-      make_computer_move board n;
-    end
-;;
 
 
 let row_has_o board row n =
@@ -454,11 +433,11 @@ let check_row_for_win board row n =
 let make_win_row board row n =
   let win_spot = ref 0 in
   for i = (row * n) to ((row * n) + (n - 1)) do
-    win_spot := i;
+    if board.(i) == ' ' then
+      win_spot := i;
   done;
   board.(!win_spot) <- 'O'
 ;;
-
             
 let col_has_x board col n =
   let x_exists = ref false in
@@ -633,6 +612,7 @@ let make_computer_win board n =
         win_fun_num := 4;
         win_spot := (i);
       end;
+    print_int i;
   done;
   if (!win_fun_num == 1) then
     make_win_row board !win_spot n;
@@ -684,34 +664,47 @@ let make_rand_move board n =
 refer to top of code for example on looping using ocaml 
 recursion. 
 
- *) 
+ *)
 
-
-
-
-(*And then here is main: *)
-let main () =
-    let _ = print_string
-          "Welcome to Tic-Tac-Toe Ocaml! Enter the size of the board: " in
-    let n = read_int () in
-    let board = initBoard n in
-    
-    get_player_move board n;
-    main_loop board n (false)
-;;
-
-
-let rec get_player_move board n =
-  print_string "row: ";
-  let row = read_int () in
-  print_string "col: ";
-  let col = read_int () in
-  let move = calculate_move row col n in
-  if (player_move_validation move board) then
-    board.(move) <- 'X'
+let do_computer_move board n =
+  if (check_computer_for_win_move board n) then
+    (make_computer_win board n;)
+  else if (check_computer_for_block board n) then
+    (make_computer_block board n;)
   else
-    begin
-      print_string "Invalid move. Please try again.\n";
-      get_player_move board n;
-    end
+    (make_rand_move board n;)
 ;;
+
+let main () =
+  let game_over = ref false in
+  let computer_turn = ref true in
+  let _ = print_string "Welcome to Tic-Tac-Toe Ocaml! Enter the size of the board: " in
+  let n = read_int() in
+  let board = initBoard n in
+  get_player_move board n;
+  while not !game_over do
+    printBoard board n;
+    (* check for cat's game *)
+    if (board_not_full_check board n = false) then
+      game_over := true;
+    (* check for player win *)
+    if (check_for_win board n 'X') then
+      game_over := true;
+    (* check for computer win *)
+    if (check_for_win board n 'O') then
+      game_over := true;
+    (* if we are here, only execute this code if no one is a winner *)
+    if (not !game_over) then
+      if (!computer_turn) then
+        (* if we are here, it's computer's turn *)
+          (do_computer_move board n;
+          computer_turn := false;)
+      else if (not !computer_turn) then
+          (get_player_move board n;
+          computer_turn := true;)
+  done;
+  print_string "Game over. Thanks for playing\n"
+;;
+
+
+main () ;;
