@@ -1,0 +1,11 @@
+import re
+
+
+email = ['cdelliott96@gmail.com', '12345@12345.com', '{}|\@gmail.com']
+
+email_regex = r'([\w.-_]+)@([\w.-_]+)'
+
+p = re.compile(email_regex)
+
+for item in email:
+    p.match(item)
