@@ -4,6 +4,7 @@
 
 % =========== PREAMBLE =========================================================
 \documentclass[12pt, letterpaper]{article}
+% \usepackage[document]{ragged2e}
 \usepackage[utf8]{inputenc}
 \author{Christian Elliott}
 \date{April 8, 2020}
@@ -12,7 +13,156 @@
 
 % ========== MAIN DOC BODY =====================================================
 \begin{document}
+\begin{flushleft}
+  \textbf{MATH 325 EXAM 3} \hfill Christian Elliott \\
+  \hfill April 9, 2020 \\
+  
+  \begin{enumerate}
+  \item (24 points) A small post office is operating with only 1-cent, 2-cent, 3-cent, and 5-cent stamps. \\
+    \begin{enumerate}
+    \item Find a recurrence relation for the number of ways $a_n$ to make n-cents of postage if the order in which the stamps are attahced to the envelope (one very long line of stamps) matters. \\
+      \smallskip
+      The recurrence relation for the number of ways to make n-cents is: $a_n = a_{n-1} + a_{n-2} + a_{n-3} + a_{n-5}$ \\
+
+    \item What are the initial conditions? \\
+      \smallskip
+      The initial conditions are:
+      $a_0 = 1$, $a_1 = 1$, $a_2 = 1$, $a_3 = 1$, $a_4 = 6$, and $a_5 = 1$ \\
+      
+    \item Use your recurrence relation to determine how many ways are there to create 12-cents of postage if the ordering of the stamps matters. \\
+      \smallskip
+      Because order matters, we have to build this from our initial conditions. Therefore: \\
+      $a_6 = a_5 + a_4 + a_3 + a_1 = 1 + 6 + 1 + 1 = 9$ \\
+      $a_7 = a_6 + a_5 + a_4 + a_2 = 9 + 1 + 6 + 1 = 17$ \\
+      $a_8 = a_7 + a_6 + a_5 + a_3 = 17 + 9 + 1 + 1 = 28$ \\
+      $a_9 = a_8 + a_7 + a_6 + a_4 = 28 + 17 + 9 + 6 = 60$ \\
+      $a_{10} = a_9 + a_8 + a_7 + a_5 = 60 + 28 + 17 + 1 = 106$ \\
+      $a_{11} = a_{10} + a_9 + a_8 + a_6 = 106 + 60 + 28 + 9 = 203$ \\
+      $a_{12} = a_{11} + a_{10} + a_9 + a_7 = 203 + 106 + 60 + 17 = 386$ \\
+      Therefore there are 386 ways to make 12 cents using 1, 2, 3, and 5 cent postage. \\
+    \item Use a generating function to determine how many ways there are to create 12-cents of postage if the ordering of the stamps does not matter. \\
+      \smallskip
+      $(1+x+x^2+x^3+x^4+x^5+x^6+x^7+x^8+x^9+x^{10}+x^{11}+x^{12})(1+x^2+x^4+x^6+x^8+x^{10}+x^{12})(1+x^3+x^6+x^9+x^{12})(1+x^5+x^{10})$ \\
+    \item Use a generating function to determine how many ways there are to create 12-cents of postage if the ordering of the stamps matters. \\
+      \smallskip
+      $(x+x^2+x^3+x^5)^{12}$\\
+      
+    \end{enumerate}
+
+  \item (10 points) Solve the recurrence relation together with the initial conditions given. Explain all of your steps. \\
+    \smallskip
+    $a_n = 6a_{n-1} - 9a_{n-2}$ for $n \geq 2$, with $a_0 = 3$ and $a_1 = 6$. \\
+    \medskip
+    First, we must determine the characteristic equation of the relation to determine how to solve it. The characteristic equation is $r^n = 6r^{n-1} - 9r^{n-2}$ \\
+    Simplified and set equal to 0 we get: $r^n - 6r + 9 = 0$ \\
+    When we factor this, we get \textbf{one} solution of $r = 3$. \\
+    Becuase there is only one root, we must use Theorem 2 to continue. \\
+    Using Theorem 2, we can write the relation as
+    $a_n = \alpha_1 \cdot 3^n + \alpha_2 \cdot n(3)^n$ \\
+    Then, using our initial conditions, we can solve for the coefficients $\alpha_1$ and $\alpha_2$. \\
+    $a_0 = 3 = \alpha_1 \cdot 3^0 + \alpha_2 \cdot 0(3)^0 \Rightarrow \alpha_1 = 3$ \\
+    $a_1 = 6 = \alpha_1 \cdot 3^1 + \alpha_2 \cdot 1(3)^1 \Rightarrow \alpha_2 = -1$ \\
+    Therefore, $a_n = 3(3)^n + (-1)n(3)^n$ \\
+    \smallskip
+  \begin{item} (14 points) Consider the nonhomogeneous linear recurrence relation
+    \center $a_n = 6a_{n-1} - 8a_{n-2} + n + 2$ \\
+    \begin{enumerate}
+    \begin{item} Show that $a_n = \frac{1}{3}n + \frac{16}{9}$ is a solution of this recurrence relation. \\
+      \smallskip
+      We have to plug the above solution into our original relation and simplify: \\
+      \center $a_n = 6(\frac{1}{3}(n-1)+\frac{16}{9})-8(\frac{1}{3}(n-2)+\frac{16}{9})+n+2$ \\
+      \center $ = \frac{1}{3}n + \frac{16}{9}$ \\
+    \end{item}
+    \item Use Theorem 5 to find all solutions of this recurrence relation.
+      \smallskip
+      Applying Theorem 5, we get:
+      $a_n = \frac{1}{3}n + \frac{16}{9} + \alpha_1(2)^n + \alpha_2(4)^n$ \\
+    \begin{item} Find the solution with $a_0 = -\frac{2}{9}$ and $a_1 = \frac{1}{9}$. \\
+      \smallskip
+      To do this, we must solve for our coefficients as we would do in a typical homogeneous recurrence relation. \\
+      $a_0 = -\frac{2}{9} = \frac{1}{3}(0) + \frac{16}{9} + \alpha_1(2)^0 + \alpha_2(4)^0 = \frac{16}{9}+\alpha_1+\alpha_2$ \\
+      $a_1 = \frac{1}{9} = \frac{1}{3}(1)+\frac{16}{9}+\alpha_1(2)^1+\alpha_2(4)^1$ \\
+      After graphing and identifying the intersection, we get $\alpha_1 = -2.833$ and $\alpha_2 = 4.611$ \\
+      Therefore, our solution is $a_n = \frac{1}{3}n+\frac{16}{9}-2.833(2)^n+4.611(4)^n$ \\
+    \end{item}
+    \end{enumerate}
+  \end{item}
+
+  \begin{item} (16 points) Consider the letters in the word C O R O N A V I R U S \\
+    \begin{enumerate}
+    \item How many different strings can be made using all the letters? Explain. \\
+      \medskip
+      This is a permutation of indistinguishable objects. \\
+      $n_{objects} = 11$, and $n_c = 1, n_o = 2, n_r = 2, n_a = 1, n_v = 1, n_i = 1, n_u = 1, n_s = 1$. \\
+      So, $\frac{11!}{1!2!2!1!1!1!1!1!}$ \\
+      $ = 9979200 $ \\
+      \medskip
+    \item How many of these strings start or end with R? Explain. \\
+      \smallskip
+      Number that start with R: $\frac{10!}{2!}$ \\
+      Number that end with R: $\frac{10!}{2!}$ \\
+      Number that both start and end with R: $\frac{9!}{2!}$ \\
+      Therefore, number of strings that start or end (exclusive or) with R: $\frac{10!}{2!} + \frac{10!}{2!} - \frac{9!}{2!} = 3447360$ \\
+
+      \smallskip
+    \item How many of these strings start and end with R? Explain. \\
+      \smallskip
+      Both R's are spoken for, leaving us with 9 objects. \\
+      $\frac{9!}{2!} = 181440$ \\
+      \smallskip
+    \item How many of these strings contain the string VIRUS? Explain. \\
+      \smallskip
+      ``VIRUS'' contains 5 letters. $11 - 5 = 6$. So the answer is $\frac{6!}{2!} = 360$ \\
+    \end{enumerate}
+  \end{item}
+    
+  \begin{item} (22 points) Consider integer solutions to the equation $x_1 + x_2 + x_3 = 12$ \\
+    \begin{enumerate}
+    \item How many integer solutions are there if we require all three variables be nonnegative? Explain your answer using a combination. \\
+      This is a simple combination. We are distributing 12 positive integers into 3 buckets. The answer is $\frac{12!}{3!9!} = 220$ \\
+      \smallskip
+    \item How many integer solutions are there if we require $x_1 \geq 1, x_2 \geq 1,$ and $x_3 \geq 1$? Explain your answer. \\
+      \smallskip
+      This is the same question as above. All x values are nonnegative (greater or equal to 1), so the answer is also 220. \\
+      \smallskip
+    \item How many integer solutions are there if we require $0 \leq x_1 \leq 7, 0 \leq x_2 \leq 6, 0 \leq x_3 \leq 8$? Explain your answer using a generating function. \\
+      \smallskip
+      $(x^1+x^2+x^3+x^4+x^5+x^6+x^7)(x^1+x^2+x^3+x^4+x^5+x^6)(x^1+x^2+x^3+x^4+x^5+x^6+x^7+x^8)$ \\
+      The answer is 36, as 36 is the coefficient of the term with an exponent of 12, when the above is simplified. \\
+      \smallskip
+    \item How many integer solutions are there if we require $0 \leq x_1 \leq 7, 0 \leq x_2 \leq 6, 0 \leq x_3 \leq 8$? Explain your answer using the principle of inclusion-exclusion as in Section 8.6 Example 1. \\
+      \smallskip
 
 
+    \item Create a problem that is somewhat more exciting (think donuts or action figures) which can be modeled using integer solutions to the equation $x_1+x_2+x_3=12$ under restrictions in (a), (b) or (c) above. \\
+
+      Suppose you have 3 types of cats: a tortie, a tabby, and a hairless. For this example, your supply of cats for each category is > 12. You have 12 customers seeking new feline friends. How many ways can you give 12 customers your cats? \\
+      12 choose 3 = 220 ways. \\
+    \end{enumerate}
+  \end{item}
+
+  \begin{item} (6 points) Dr. Tourville hired a computer science major to create a database of responses to a post-graduation survey given to 150 of her former students. To test the database she made some queries and got the following results:\\
+    \begin{itemize}
+    \item 82 students exercise regularly \\
+    \item 59 students invest in the stock market \\
+    \item 57 students volunteer in their community \\
+    \item 17 students exercise regularly and invest in the stock market \\
+    \item 12 students invest in the stock market and volunteer in their community \\
+    \item 25 students exercise regularly and volunteer in their community \\
+    \item 10 students exercise regularly, invest in the stock market, and volunteer in their community \\
+    \end{itemize}
+    \smallskip
+    Can all these responses to the queries be correct? Explain. \\
+    No. Adding all three general categories (exercise + volunteer + invest) and then subtracting (exercise \& invest) \& (invest \& volunteer) \& (volunteer \& exercise) and then adding back the 10 that do all 3, we get 155 != 150. \\
+    \smallskip
+  \end{item}
+  \item (8 points) A company stores products in a warehouse. Storage bins in this warehouse are specified by their aisle, location in the aisle, and shelf. Each storage bin can hold up to 10 products. There are 40 aisles, 60 horizontal locations in each aisle, and 5 shelves throughout the warehouse. What is the least number of products the company can have so that at least three products must be stored in the same bin? Explain your solution in detail. \\
+    \smallskip
+    There are 40 aisles. Each aisle contains 5 shelves, with 60 slots for bins on each shelf. We want every bin to have $\geq 3$ items in each bin. 40 aisles * 5 shelves per aisle, * 60 slots per shelf, * 3 items per bin per slot. That's 12000 spots for a single bin, or 1 spot for 12000 bins. If we want to have at least 3 items per bin, we need 12000 * 3 items, or 36000 items. \\
+  \end{enumerate}
+  
+  
+  
+\end{flushleft}
 \end{document}
 % ========== END DOC ===========================================================
