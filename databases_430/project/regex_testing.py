@@ -129,3 +129,38 @@ print(binascii.hexlify(dk))
 
 
 ################################################################################
+
+
+
+############################## DB ##############################################
+
+##### to do #####
+# 1) Make sure tables are correct
+# 2) implement check to see if a user exists or not
+# 3) implement user insertion
+#
+
+
+
+# Table information:
+
+#                                UserInfo
+# +----------+--------------+------+-----+---------+----------------+
+# | Field    | Type         | Null | Key | Default | Extra          |
+# +----------+--------------+------+-----+---------+----------------+
+# | uid      | int(11)      | NO   | PRI | NULL    | auto_increment | ptr to Users.uid
+# | username | varchar(100) | NO   | UNI | NULL    |                | username
+# | email    | varchar(100) | NO   | UNI | NULL    |                | email
+# +----------+--------------+------+-----+---------+----------------+
+
+#                         Users
+# +-----------+-------------+------+-----+---------+-------+
+# | Field     | Type        | Null | Key | Default | Extra |
+# +-----------+-------------+------+-----+---------+-------+
+# | uid       | int(11)     | YES  | MUL | NULL    |       |  primary key
+# | pass_hash | varchar(50) | NO   | PRI | NULL    |       |  see above for hash info
+# | salt      | varchar(20) | NO   |     | NULL    |       |  see above for salt info
+# +-----------+-------------+------+-----+---------+-------+
+
+
+# select statement to see if any users exist for given email
