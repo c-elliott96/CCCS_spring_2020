@@ -164,3 +164,22 @@ print(binascii.hexlify(dk))
 
 
 # select statement to see if any users exist for given email
+def selectResultsQueryOnly(query):
+    db = MySQLdb.connect(
+    host='magicmealmaker.mysql.pythonanywhere-services.com',
+    user='magicmealmaker',
+    passwd='V@s22BG12',
+    db='magicmealmaker$Project')
+    cursor = db.cursor()
+    cursor.execute(query)
+    results = cursor.fetchall()
+    db.commit()
+    cursor.close()
+    db.close()
+    return (results)
+
+
+query = '''INSERT INTO User (pass_hash, salt) VALUES (%s, %s)''' % (dk_hex_string, save_salt)
+
+
+query = '''SELECT uid FROM Users WHERE salt='%s'''' (save_salt)
