@@ -1,0 +1,33 @@
+{
+	type result = Int of int
+	| Float of float
+	| String of string
+	| Id of string
+	| Op of char;;
+}
+let digit = ['0'-'9']
+let digits = digit +
+let lower = ['a'-'z']
+let upper = ['A'-'Z']
+let letter = lower | upper
+let letters = letter +
+let id = (letter | '_') letters*
+let op = '+' | '-' | '*' | '/' 
+
+rule main = parse
+     digits '.' digits as f { Float (float_of_string f)
+     	    	       	      :: main lexbuf }
+   | digits as n	    { Int (int_of_string n)
+     	       		      :: main lexbuf }
+   | id as s	    { Id s :: main lexbuf }
+   | op as op       { Op op :: main lexbuf }
+   | eof     		    { [] }
+   | _ 			    { main lexbuf }
+
+ {
+	let nexlewbuf =
+	    let x = (Lexing.from_string "Christian 5 + 19.5 jon") in
+	    let _ = print_string "Ready to lex ...\n" in
+	    main x
+  ;;
+ }

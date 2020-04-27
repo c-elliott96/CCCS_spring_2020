@@ -1,0 +1,22 @@
+We must scan for: (in no order of precedence at this point)
+- Operators
+- Identifiers (vairables) 
+- Significant others:
+  if (stmt):
+  else:
+  indented code
+
+python variable names allow the following:
+1) Start with a letter or Underscore.
+   Followed by letters, numbers, and underscores.
+
+var_regex =
+[A-Z,a-z,_]+([0-9,A-Z,a-z,_]*)?
+
+let digit = ['0'-'9']             # one digit only
+let digits = digit +              # accepts 1 or more digits
+let lower_letters = ['a'-'z']     # one lowercase letter only
+let upper_letters = ['A'-'Z']     # one uppercase letter only
+let letter = upper_letters | lower_letters     # one upper or lower case letter
+let letters = letter +     # 1 or more upper or lower case letter
+

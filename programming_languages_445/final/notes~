@@ -1,0 +1,7 @@
+We must scan for: (in no order of precedence at this point)
+- Operators
+- Identifiers (vairables) 
+- Significant others:
+  if (stmt):
+  else:
+  indented code 
