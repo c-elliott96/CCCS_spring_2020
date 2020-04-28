@@ -1,0 +1,9 @@
+(* Christian Elliott python interpreter written in ocaml, final project 
+   CISS445 CCCS Spring 2020 *)
+
+#use "regex_rules.mml.ml"
+
+let _ =
+  print_string "Welcome to PyCaml, the Python calculator and basic interpreter written in Ocaml. \n
+                This program allows you to do basic arithmetic, if/else statements, and relational \n
+                comparisons using Python syntax. It is a demonstration of 

@@ -36,7 +36,7 @@ rule main = parse
  {
 	let nexlewbuf =
 	    let x = (Lexing.from_string "Christian -5 + 19.5 jon - 25") in
-	    (* let _ = print_string "Ready to lex ...\n" in *)
+	    let _ = print_string "Ready to lex ...\n" in
 	    main x
   ;;
  }

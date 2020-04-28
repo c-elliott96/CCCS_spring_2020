@@ -8,6 +8,7 @@
 	| Mult_op of char
 	| Div_op of char;;
 }
+
 let digit = '-'?['0'-'9']
 let digits = digit +
 let lower = ['a'-'z']
@@ -34,7 +35,7 @@ rule main = parse
    | _ 			    { main lexbuf }
 
  {
-	let nexlewbuf =
+	let newlexbuf =
 	    let x = (Lexing.from_string "Christian -5 + 19.5 jon - 25") in
 	    (* let _ = print_string "Ready to lex ...\n" in *)
 	    main x
